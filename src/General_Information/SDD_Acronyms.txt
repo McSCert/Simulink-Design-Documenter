@@ -1,0 +1,19 @@
+% This is the General Acronyms which should list and explain any acronyms, not specific to the system, that may be helpful for the reader of the document to know.
+% It may be useful to link to the acronyms listed here from other parts of the document.
+% You may allow this by writing the acronyms in the following format for example: [anchor=<acronym>]<acronym>: <acronym written in words>[/anchor]
+% You could then link to it from other DocBlocks being used in the report like this: [goto=<acronym>]<acronym>[/goto]
+% 
+% ---------------Summary of recognized syntax for this text----------------
+% Lines leading with a "%" will be ignored when the report is generated.
+%
+% Creating Links:
+%   [goto=myLinkID]Clicking this text would move the cursor in the report to the anchor with a LinkID of "myLinkID".[/goto]
+%   [anchor=myLinkID]The above link would lead to here.[/anchor]
+%   [url=externalLink]Clicking this text will open an external link, externalLink. (E.g. http://www.mathworks.com/)[/url]
+%
+% Adding Images:
+%   [image=imagePath]imageTitle[/image]
+%
+% When you want a new line in the report hit enter twice (a single new line in this document is ignored for readability purposes).
+%
+% Any of the lines you see here by default may be removed.

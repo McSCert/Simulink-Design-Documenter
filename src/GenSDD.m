@@ -83,7 +83,7 @@ end
 OverwriteBaseVars(baseVarsToSave); %Replaces values in base workspace with values from this workspace
 
 %Generate the SDD
-report('SDD_Report');
+report('SDD_Report', '-quiet');
 
 LoadBaseVars(baseVarsToSave,tempVarsFromBase); %Returns values in base workspace to the way they were with values from tempVarsFromBase
 end

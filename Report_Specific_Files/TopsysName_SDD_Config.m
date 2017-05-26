@@ -52,6 +52,10 @@ titleImage = ''; % Default is empty
 %							which(['\SDD_', <section name>, '.txt']) if the first is not found 
 %							- the filenames should match this convention
 
+%   includeReqTrace - determines whether or not to include the requirements traceability section in the report
+%                   - defaults to false
+includeReqTrace = false;
+
 %   srsPath - indicates path to the requirements document associated with the model
 %           - the document will be linked in the generated report
 %           - e.g. srsPath = which('reqdoc.doc') - note that if reqdoc.doc is not found '' will be returned
@@ -111,7 +115,6 @@ legalNotice = ''; % Default is empty
 %              - see the Signature Tool documentation for more information about how to use it
 %[~, signatures] = StrongSignature(bdroot(topsys),1,1,topsys,3); % Defaults to StrongSignature of the topsys, with updates on and generating no document and not modifying the model	%%%This is commented out because the signature may take a decent bit of time to run thus calling it here may slow down the tool
 
-
 %%%%%%%%%%%%%%% Remaining configurations are considered less useful and are relatively untested %%%%%%%%%%%%%%%
 %   allowBadSubsystemNames - determines whether warnings will or will not be displayed in the report for subsystemList names that do not exist
 %                          - untested if set to true
@@ -125,8 +128,6 @@ legalNotice = ''; % Default is empty
 %                        - defaults to true
 %   includeTableDefaults - when true, if a table would be empty and thus not be included in the report, a default message will be included in the document to indicate there is nothing to display
 %                        - defaults to true
-%   includeReqTrace - determines whether or not to include the requirements traceability section in the report (it doesn't always look good and only currently links properly when generating HTML in newer versions of MATLAB)
-%                   - defaults to true
 %   includePortTables - determines whether or not to include the Inport and Outport tables
 %                     - defaults to true
 %   includeDSTables - determines whether or not to include the Data Store tables

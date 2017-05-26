@@ -53,6 +53,10 @@ titleImage = 'House.PNG';
 %							which(['\SDD_', <section name>, '.txt']) if the first is not found 
 %							- the filenames should match this convention
 
+%   includeReqTrace - determines whether or not to include the requirements traceability section in the report
+%                   - defaults to false
+includeReqTrace = false;
+
 %   srsPath - indicates path to the requirements document associated with the model
 %           - the document will be linked in the generated report
 %           - e.g. srsPath = which('reqdoc.doc') - note that if reqdoc.doc is not found '' will be returned
@@ -100,42 +104,3 @@ abstract = 'N/A'; % Default is N/A
 
 %   legalNotice - a legal notice for the document 
 legalNotice = ''; % Default is empty
-
-%   signatures - is a representation of the signature of the model based on output from the Signature Tool.
-%              - The variable should be set using the following scheme for this report generation:
-%                  [~ signatures] = <Weak/Strong>Signature(bdroot(topsys),1,<updates>,topsys,<txt>);
-%                       - Use StrongSignature to return the interface based on how the model
-%                       is used, or use WeakSignature to return the interface based on how
-%                       the model could be used.
-%                       - Use updates = 1 if you would like to include an updates table in 
-%                       the interface, or use updates = 0 if it is not desired
-%              - see the Signature Tool documentation for more information about how to use it
-%[~, signatures] = StrongSignature(bdroot(topsys),1,1,topsys,3); % Defaults to StrongSignature of the topsys, with updates on and generating no document and not modifying the model	%%%This is commented out because the signature may take a decent bit of time to run thus calling it here may slow down the tool
-
-
-%%%%%%%%%%%%%%% Remaining configurations are considered less useful and are relatively untested %%%%%%%%%%%%%%%
-%   allowBadSubsystemNames - determines whether warnings will or will not be displayed in the report for subsystemList names that do not exist
-%                          - untested if set to true
-%                          - defaults to false
-%   allowDuplicateSections - when true, warnings for having sections of the same name are suppressed
-%                          - defaults to false
-%   requireInterface - when true, warnings will appear if mapDataTypes.m is not on the MATLAB path (this function is needed to fill out interface tables in the document)
-%                    - defaults to true
-%   includeExtraSections - currently does nothing
-%                        - will remove this (or give it fucntionality) in the future
-%                        - defaults to true
-%   includeTableDefaults - when true, if a table would be empty and thus not be included in the report, a default message will be included in the document to indicate there is nothing to display
-%                        - defaults to true
-%   includeReqTrace - determines whether or not to include the requirements traceability section in the report (it doesn't always look good and only currently links properly when generating HTML in newer versions of MATLAB)
-%                   - defaults to true
-%   includePortTables - determines whether or not to include the Inport and Outport tables
-%                     - defaults to true
-%   includeDSTables - determines whether or not to include the Data Store tables
-%                   - defaults to true
-%   includeGotoTables - determines whether or not to include the Goto and From tables
-%                     - defaults to true
-%   includeTagVis - determines whether or not to include the table for GotoTagVisibility
-%                 - if includeGotoTables is false then the table is not included either way
-%                 - defaults to true
-%   includeSubsTable - determines whether or not to include the SubSystems table
-%                    - defaults to true

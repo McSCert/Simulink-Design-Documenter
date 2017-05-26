@@ -91,6 +91,8 @@ initVar('removeSubCols', [0 1 1 1 1 0]); %removeSubCols corresponds to tables wh
 %e.g. initVar('srsPath','''C:/.../mySRS.doc''') or initVar('srsPath',which('mySRS.doc'))
 initVar('srsPath','');
 
+initVar('includeReqTrace', false); % This determines whether or not to include the requirements traceability section in the report (defaults to false because it doesn't always look good and only currently links properly when generating HTML in newer versions of MATLAB)
+
 %Leave these unless you have a particular reason to change them
 initVar('allowMissingDocBlocks', false); % If true, the report generation is supposed to ignore missing docblocks however this is untested
 initVar('displayWarningSummary', true); % If false, the Summary of Warnings section will be omitted from the report
@@ -99,7 +101,6 @@ initVar('allowDuplicateSections', false); % When true, warnings for having secti
 initVar('requireInterface', true); % When true, warnings will appear if mapDataTypes.m is not on the MATLAB path (this function is needed to fill out interface tables in the document)
 initVar('includeExtraSections', true); % Includes all DocBlocks in the Overall System Design SubSystem (if false, only defaults get included)
 initVar('includeTableDefaults', true); % When true, if a table would be empty and thus not be included in the report, a default message will be included in the document to indicate there is nothing to display
-initVar('includeReqTrace', true); % This determines whether or not to include the requirements traceability section in the report (it doesn't always look good and only currently links properly when generating HTML in newer versions of MATLAB)
 
 %Leave these(this) unless you have a particular reason to change them(it)
 initVar('includeSubsTable', true);

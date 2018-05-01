@@ -11,8 +11,8 @@ function blockInfo = findBlockInfo(block, dataTypeMap, getUnit)
 %
 %   Outputs:
 %       blockInfo       Info about given block given in the following form:
-%                       [{'Name'}, {'Unit'}, {'Min'}, {'Max'}, 
-%                       {'Data Type'}, {'Description'}] where each char is 
+%                       [{'Name'}, {'Min'}, {'Max'}, {'Data Type'},
+%                       {'Unit'}, {'Description'}] where each char is
 %                       replaced with an appropriate value for the block.
 
 %Find appropriate values for the row entries
@@ -39,5 +39,5 @@ description = get_param(block, 'Description');
 % end
 
 %Set ith row entries
-blockInfo = [blockName, unit, min, max, type, description];
+blockInfo = [blockName, type, min, max, unit, description];
 end

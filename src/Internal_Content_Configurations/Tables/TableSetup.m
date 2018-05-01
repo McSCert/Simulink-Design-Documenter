@@ -44,7 +44,7 @@ switch blockType
 end
 
 %Set table header
-tableHeader = [{'Block'}, {'Unit'}, {'Min'}, {'Max'}, {'Data Type'}, {'Description'}];
+tableHeader = [{'Block'}, {'Data Type'}, {'Min'}, {'Max'}, {'Unit'}, {'Description'}];
 table = tableHeader;
 
 blocks = findBlocks(system,blockType);

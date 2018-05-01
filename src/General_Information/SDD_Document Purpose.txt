@@ -16,5 +16,5 @@
 %
 % Any of the lines you see here by default may be removed.
 
-The purpose of this document is to provide a detailed design description for this model.
-To provide this detailed description the model will be described in a hierarchical fashion starting with the top-level and progressively working toward lower level descriptions of the most significant subsystems within the model.
+The purpose of this document is to provide a detailed design description for [var=topsys].
+To provide this detailed description, the model will be described in a hierarchical fashion starting with the top-level and progressively working toward lower level descriptions of the most significant subsystems within the model.

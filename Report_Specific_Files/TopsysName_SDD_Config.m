@@ -114,28 +114,3 @@ legalNotice = ''; % Default is empty
 %                       the interface, or use updates = 0 if it is not desired
 %              - see the Signature Tool documentation for more information about how to use it
 %[~, signatures] = StrongSignature(bdroot(topsys),1,1,topsys,3); % Defaults to StrongSignature of the topsys, with updates on and generating no document and not modifying the model	%%%This is commented out because the signature may take a decent bit of time to run thus calling it here may slow down the tool
-
-%%%%%%%%%%%%%%% Remaining configurations are considered less useful and are relatively untested %%%%%%%%%%%%%%%
-%   allowBadSubsystemNames - determines whether warnings will or will not be displayed in the report for subsystemList names that do not exist
-%                          - untested if set to true
-%                          - defaults to false
-%   allowDuplicateSections - when true, warnings for having sections of the same name are suppressed
-%                          - defaults to false
-%   requireInterface - when true, warnings will appear if mapDataTypes.m is not on the MATLAB path (this function is needed to fill out interface tables in the document)
-%                    - defaults to true
-%   includeExtraSections - currently does nothing
-%                        - will remove this (or give it fucntionality) in the future
-%                        - defaults to true
-%   includeTableDefaults - when true, if a table would be empty and thus not be included in the report, a default message will be included in the document to indicate there is nothing to display
-%                        - defaults to true
-%   includePortTables - determines whether or not to include the Inport and Outport tables
-%                     - defaults to true
-%   includeDSTables - determines whether or not to include the Data Store tables
-%                   - defaults to true
-%   includeGotoTables - determines whether or not to include the Goto and From tables
-%                     - defaults to true
-%   includeTagVis - determines whether or not to include the table for GotoTagVisibility
-%                 - if includeGotoTables is false then the table is not included either way
-%                 - defaults to true
-%   includeSubsTable - determines whether or not to include the SubSystems table
-%                    - defaults to true

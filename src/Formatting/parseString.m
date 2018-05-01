@@ -26,6 +26,11 @@ function parsedString = parseString(str)
 %   Details on the syntax for the input string:
 %       Lines starting with '%' are ignored.
 %
+%       Refer to a variable:
+%           [var=<VariableName>]
+%       <VariableName> is a variable in the base workspace of type char
+%           array (e.g. topsys or some other config variable)
+%       
 %       Make an 'Internal Document Link' (i.e. a link):
 %           [goto=<LinkID>]<LinkText>[/goto]
 %       <LinkID> identifies a point in the document to link to 
@@ -92,6 +97,7 @@ end
 %Next use the syntax described at the top of this function to separate str into appropriate parts
 
 parsedString={};
+varName = '[var=';
 gotoStart = '[goto=';
 gotoEnd = '[/goto]';
 anchorStart = '[anchor=';
@@ -108,14 +114,17 @@ str = strrep(str,sprintf('\r'),sprintf('\n'));
 newline = sprintf('\n\n');
 
 while ~isempty(str)
+    varLoc = strfind(str,varName);
     anchorLoc = strfind(str,anchorStart);
     gotoLoc = strfind(str,gotoStart);
     urlLoc = strfind(str,urlStart);
     imageLoc = strfind(str,imageStart);
     newlineLoc = strfind(str,newline);
     
-    keyLocs = {anchorLoc, gotoLoc, urlLoc, imageLoc, newlineLoc};
-    if ~isempty(gotoLoc) && gotoLoc(1) == 1
+    keyLocs = {varLoc, anchorLoc, gotoLoc, urlLoc, imageLoc, newlineLoc};
+    if ~isempty(varLoc) && varLoc(1) == 1
+        [parsedString, str] = parseVarTag(parsedString,str,varName);
+    elseif ~isempty(gotoLoc) && gotoLoc(1) == 1
         [parsedString, str] = parseLinkTag(parsedString,str,gotoStart,gotoEnd,'Internal document link');
     elseif ~isempty(anchorLoc) && anchorLoc(1) == 1
         [parsedString, str] = parseLinkTag(parsedString,str,anchorStart,anchorEnd,'Linking anchor');
@@ -143,6 +152,24 @@ end
 
 if isempty(parsedString)
     parsedString = 'N/A';
+end
+end
+
+function [parsedString, str] = parseVarTag(parsedString,str,tag)
+%For a given string, str, this will identify the string on the base
+%workspace with the same name and add value in parsedString.
+%Also updates the str to exclude everything before the parsed text
+varStart = 1+length(tag);
+varEnd = strfind(str,']')-1; %1st value of pathEnd is the index of the last character in the varName
+varName = str(varStart:varEnd(1));
+varValue = evalin('base', varName);
+assert(ischar(varValue))
+parsedString{end+1} = {{'Text'},{varValue}};
+
+try
+    str = str(varEnd+1+1:end);
+catch
+    str = [];
 end
 end
 

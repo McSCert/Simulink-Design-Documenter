@@ -47,6 +47,8 @@ subtitle = 'Software Design Description'; % Default is the document type generat
 titleImage = ''; % Default is empty
 
 %   pathToIntroSections - a path to a directory with the introductory sections (these are: Document Purpose, Scope, Definitions, and Acronyms) to be included in the document
+%                       - e.g. If the directory is called "General_Information" and is in the same location as this config file, one could set pathToIntroSections with:
+%                           pathToIntroSections = [fileparts(which(mfilename)) '/' 'General_Information'];
 %                       - default leaves this undeclared and will find the files with: 
 %							which(['\SDD_', <section name>, '.doc']) or 
 %							which(['\SDD_', <section name>, '.txt']) if the first is not found 

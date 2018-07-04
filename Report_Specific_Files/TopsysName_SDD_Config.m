@@ -116,3 +116,8 @@ legalNotice = ''; % Default is empty
 %                       the interface, or use updates = 0 if it is not desired
 %              - see the Signature Tool documentation for more information about how to use it
 %[~, signatures] = StrongSignature(bdroot(topsys),1,1,topsys,3); % Defaults to StrongSignature of the topsys, with updates on and generating no document and not modifying the model	%%%This is commented out because the signature may take a decent bit of time to run thus calling it here may slow down the tool
+
+%   cal_script - indicates path to a file used to set calibrations and their values for the model
+%              - the calibration names, datatypes, and values will be displayed at the top of the Design Description section in the generated report
+%              - e.g. cal_script = [fileparts(which(mfilename)) '/' 'model_calibrations.m']; - gets a file in the same folder as the Config file with the name 'model_calibrations.m'
+cal_script = ''; % Default of '' indicates no requirements document

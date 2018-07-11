@@ -41,7 +41,7 @@ switch blockTitle
     case 'Rationale'
         libraryBlockDescription = ['This is the ', blockTitle, ' which ', ...
             'should justify why design decisions were made.\n'];
-        specificComments = 'It should also justify why the alternatives that were considered were not selected.\n';
+        specificComments = 'It should also justify why alternative design decisions that were considered were not selected.\n';
 
     case 'Requirements Specification'
         libraryBlockDescription = ['This is the ', blockTitle, ' DocBlock which ', ...

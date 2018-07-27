@@ -33,7 +33,7 @@
 %                  - e.g. subsystemList = {<subsystem1>,<subsystem2>,...,<subsystemN>};
 %                  - e.g. subsystemList = find_system(topsys,'SearchDepth','3','FollowLinks','on','BlockType','SubSystem','MaskType',''); %This will exclude masked subsystems
 %                  - The default includes subsystems within the first 3 levels of topsys (and excludes DocBlocks)
-subsystemList = {'sldemo_househeat/House'};
+subsystemList = {'sldemo_househeat_doc/House'};
 
 %   authors - author(s) of the document
 authors = 'Firstname Lastname'; % Default is empty
@@ -104,3 +104,8 @@ abstract = 'N/A'; % Default is N/A
 
 %   legalNotice - a legal notice for the document 
 legalNotice = ''; % Default is empty
+
+%   cal_script - indicates path to a file used to set calibrations and their values for the model
+%              - the calibration names, datatypes, and values will be displayed at the top of the Design Description section in the generated report
+%              - e.g. cal_script = [fileparts(which(mfilename)) '/' 'model_calibrations.m']; - gets a file in the same folder as the Config file with the name 'model_calibrations.m'
+cal_script = ''; % Default of '' indicates no requirements document

@@ -25,11 +25,11 @@ function [blockFullName, propertiesDescription] = gen_SDD_Block(system, blockTit
 
 blockFullName = [system, '/', blockTitle];
 
-propertiesDescription = sprintf(getSddBlockDescription(blockTitle));
+propertiesDescription = sprintf(getLibraryBlockDescription(blockTitle));
 
 %Check if the block exists in the system already
 if isempty(find_system(system, 'SearchDepth', '1', 'Parent', system, 'Name', blockTitle))
-    userdataDescription = getDefaultSddBlockUserData(blockTitle);
+    userdataDescription = getDefaultLibraryBlockUserData(blockTitle);
 
     %Create the block
     add_block('simulink/Model-Wide Utilities/DocBlock', blockFullName, 'UserData', userdataDescription, 'Description', propertiesDescription, 'ShowName', 'on');

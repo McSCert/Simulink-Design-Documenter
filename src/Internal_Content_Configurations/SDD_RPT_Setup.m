@@ -45,6 +45,8 @@ initVar('abstract', 'N/A');
 
 initVar('legalNotice', '');
 
+initVar('cal_script', '');
+
 %Variable: pathToIntroSections
 %By default the tool will try to find the appropriate path automatically so it need not be defined
 %If used, pathToIntroSections shall indicate a path to a directory which contains: 

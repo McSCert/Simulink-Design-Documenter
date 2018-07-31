@@ -20,10 +20,9 @@ function GenSDD(topsys)
     % Execute user defined Matlab code to setup variables more appropriately
     % I.e. run the config
     try
-        fprintf(['\tSearching for config file named:', '\n'])
-        fprintf(['\t\t', get_param(topsys, 'Name'), '_SDD_Config.m', '\n'])
-        
         evalin('base', ['run(''', get_param(topsys,'Name'), '_SDD_Config.m', ''')']);
+        fprintf(['\tRan config file at:', '\n']);
+        disp(which([get_param(topsys,'Name'), '_SDD_Config.m']));
         
         assignin('base', 'errorIn_model_SDD_Config', false);
     catch ME

@@ -22,7 +22,7 @@ function GenSDD(topsys)
     try
         evalin('base', ['run(''', get_param(topsys,'Name'), '_SDD_Config.m', ''')']);
         fprintf(['\tRan config file at:', '\n']);
-        disp(evalin('base', which([get_param(topsys,'Name'), '_SDD_Config.m'])));
+        disp(which([get_param(topsys,'Name'), '_SDD_Config.m']));
         
         assignin('base', 'errorIn_model_SDD_Config', false);
     catch ME

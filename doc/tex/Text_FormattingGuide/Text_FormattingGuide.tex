@@ -1,0 +1,206 @@
+\documentclass{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages & Macros
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{datetime}
+	\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks,urlcolor=blue}
+\usepackage{ifthen}
+\usepackage{verbatim}
+\usepackage{listings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tool-Specific Macros
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../../../common/macros}
+
+\newcommand{\ToolName}{Simulink Design Documenter\@\xspace}
+
+\newcommand{\menu}[1]{%
+	\ifthenelse{\equal{#1}{1}}{Generate Simulink Design Document}{}%
+	\ifthenelse{\equal{#1}{2}}{?}{}%
+}
+
+\newcommand{\func}[1]{%
+	\ifthenelse{\equal{#1}{1}}{GenSDD}{}%
+	\ifthenelse{\equal{#1}{2}}{?}{}%
+	\ifthenelse{\equal{#1}{3}}{?}{}%
+	\ifthenelse{\equal{#1}{4}}{?}{}%
+	\ifthenelse{\equal{#1}{5}}{?}{}%
+	\ifthenelse{\equal{#1}{6}}{?}{}%
+}
+
+\newcommand{\sdd}{Software Design Description\@\xspace}
+\newcommand{\demoName}{\cmd{sldemo\_househeat}\@\xspace}
+
+\newcommand{\FCA}{0} 	% Enable/disabled FCA-specific content
+\newcommand{\HowSetPath}{\ifthenelse{\equal{\FCA}{1}}{If it is not, go to \cmd{File~>~Set~Path...}, press \cmd{Add with Subfolders}, and select the \cmd{McMaster\_Tools} folder. Restart \matlab after doing so.}{}}
+
+\definecolor{light-gray}{gray}{0.95}
+\lstset{ %
+  backgroundcolor=\color{light-gray}, 
+  language=Matlab,
+  basicstyle=\ttfamily,
+  commentstyle=\textup,
+  columns=fullflexible,
+  escapeinside={<@}{@>}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{\ToolName \\[.75em] {\large \textit{Text Formatting Guide}}}
+\date{\monthyeardate\today}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
+\vfill
+
+\begin{figure}
+	\centering
+	\includegraphics[]{../../../common/McSCert_Logo.pdf} \\
+	McMaster Centre for Software Certification (McSCert)
+\end{figure}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+The purpose of the \ToolName is to facilitate the production of useful \sdd documents for software systems developed with Simulink. Text \block{DocBlock}s\footnote{\url{https://www.mathworks.com/help/simulink/slref/docblock.html}} as well as external text files may be used to provide the content of the reports, however, it is possible to format and markup the text in order to add items such as newlines and links. This document explains some of the formatting behaviour as well as the available markup language made available by the \ToolName for plain text content.
+%Further details, as well as additional options and capabilities, can be found in the full guide, located in \cmd{SimulinkDesignDocumenter\_FullGuide/FullGuide.pdf}.
+
+\section{Formatting and Markup}
+In principle, the input text for the report from Text type \block{DocBlock}s or from external text files can be written without concern for the formatting which will be outlined here, however, it may be useful to be aware of the features which can be used as they may be useful in preparing the report. The behaviour and tags are explained in the following sections. The markup elements/tags are highlighted red in the provided code snippets, while elements for the user to change with text of their choice are highlighted blue.
+
+%------------------------
+\subsection{Whitespaces}
+%------------------------
+Whitespace such as tabs and consecutive spaces appear in the output report as a single space. Note, this appears to be a limitation of Simulink Report Generator and may be changed by MathWorks in the future.
+
+%------------------------
+\subsection{Newlines}
+%------------------------
+Newlines in Text \block{DocBlock}s and external text files appear differently in the generated report than one might expect. A single newline is ignored, and consecutive newlines beyond the first will act as newlines in the generated document. 
+%{\color{red}MB: More specifically, 2? GM: kind of, I don't feel like saying 2 is clear enough, how is what I put there now? (the meaning should be: \# newlines in report = max(0,n-1) where n is the number of consecutive newlines%, rather than \# newlines = floor(n/2) or min(max(n-1,0),1) ... I'm probably over complicating this with the math
+%)}. 
+The rationale for this is that single newlines are needed to break up long lines into paragraphs, in order to make the text file itself readable. If a single newline corresponded to a newline in the report, then the text file would likely be unreadable as it would have too much on a single line (i.e. it would have a whole paragraph on a single line). Therefore, to include one newline in the report, the text must have two newlines in a row. Similarly, to include an empty line in the report, the text must have three newlines in a row.
+
+%------------------------
+\subsection{Comments}
+%------------------------
+Lines of text may be commented out if desired. This is achieved by beginning the line with the percent character (\verb|%|), which will result in that line being ignored during report generation. Unlike \matlab code, the \verb|%|
+cannot be added at any point in the line, just at the beginning. Otherwise, the percent character will be interpreted as regular plain text.
+
+\begin{lstlisting}
+<@\color{red}{\%}@> <@\color{blue}{Comment text that is not to be included in the report}@>
+<@\color{blue}{Regular text of the report that uses \% as a regular character.}@>
+\end{lstlisting}
+
+%------------------------
+\subsection{Images}
+%------------------------
+Images can be included in the report by including the \verb|image| tags, where \verb|imagePath| is the system path of the file to be included, and \verb|imageTitle| will appear above the image as its title.
+
+\begin{lstlisting}
+<@\color{red}{[image=}@><@\color{blue}{imagePath}@><@\color{red}{]}@><@\color{blue}{imageTitle}@><@\color{red}{[/image]}@>
+\end{lstlisting}
+
+%------------------------
+\subsection{Links}
+%------------------------
+The markup language supports linking to external sources, linking to other parts of the report, and anchors for those to be linked to. 
+
+%------------------------
+\subsubsection{External Links}
+%------------------------
+To create a link to a source external to the document, such as a file or website, use the \verb|url| tags shown below.
+
+\begin{lstlisting}
+<@\color{red}{[url=}@><@\color{blue}{myLinkID}@><@\color{red}{]}@><@\color{blue}{linkText}@><@\color{red}{[/url]}@>
+\end{lstlisting}
+
+\noindent In this example, only \verb|linkText| will appear in the document and it can be clicked to open \verb|myLinkID|, where \verb|myLinkID| can be the path to a file (e.g. \path{C:\Users\File_Name}), or a website (e.g. \path{www.website.com}).
+
+%------------------------
+\subsubsection{Internal Links}
+\label{LBL:internalLinks}
+%------------------------
+It is possible to create links to different parts of a report. This section explains the tags to do so.
+
+
+%------------------------
+\paragraph{Anchors}~\\
+%------------------------
+One can create a link anchor within the text, in order to be able to link to that location from other points in the document. To do so, use the \verb|anchor| tags below.
+
+\begin{lstlisting}
+<@\color{red}{[anchor=}@><@\color{blue}{myLinkID}@><@\color{red}{]}@><@\color{blue}{linkText}@><@\color{red}{[/anchor]}@>
+\end{lstlisting}
+
+\noindent In the generated document, only the \verb|linkText| will appear. The unique link identifier of the anchor is \verb|myLinkID| and it is used to identify the point in the document where the anchor is placed. Note that there should be only one anchor with a given link ID in order to avoid ambiguity. 
+
+%------------------------
+\paragraph{Links to Anchors}~\\
+%------------------------
+Then, a link can be created to link to an anchor point in the document. To do so, use the following \verb|goto| tags.
+
+\begin{lstlisting}
+<@\color{red}{[goto=}@><@\color{blue}{myLinkID}@><@\color{red}{]}@><@\color{blue}{linkText}@><@\color{red}{[/goto]}@>
+\end{lstlisting}
+ 
+Again, only \verb|linkText| will appear in the generated document, and clicking \verb|linkText| will jump to the anchor with link ID of \verb|myLinkID|. Note the use of the \verb|goto| and \verb|anchor| tags allows for linking across all parts of the report. Goto linking is not limited to the \block{DocBlock} or text file in which a link is created.
+
+%------------------------
+\paragraph{Links to Automatically Generated Anchors}~\\
+%------------------------
+The \ToolName creates a number of link anchors automatically, and it is possible to link to them. For example, to link to an item in a table in the appendix, use \verb|app:ItemName| in place of \verb|myLinkID|, as shown below. 
+
+\begin{lstlisting}
+<@\color{red}{[goto=app:}@><@\color{blue}{ItemName}@><@\color{red}{]}@><@\color{blue}{linkText}@><@\color{red}{[/goto]}@>
+\end{lstlisting}
+
+\noindent In this case \verb|ItemName| should be replaced with the contents of the leftmost column of the row that this should link to. 
+For example, if there is a table in the appendix in which the leftmost column is ``Name", the top-left cell in the table will also be ``Name" (as it is the header). Thus, the below tags will link to the first row in that table. 
+
+\begin{lstlisting}
+<@\color{red}{[goto=app:}@><@\color{blue}{Name}@><@\color{red}{]}@><@\color{blue}{linkText}@><@\color{red}{[/goto]}@>
+\end{lstlisting}
+
+\vspace{0.7em}
+Multiple rows may have the same entry in the first column, in which case this method of linking will choose one of the options arbitrarily.
+This ambiguity can be handled by using a longform syntax in which \verb|app:ItemName| should be replaced as shown below:
+
+\begin{lstlisting}
+<@\color{red}{[goto=\%<linkMap(`Table\_}@><@\color{blue}{TableTitle}@><@\color{red}{\_}@><@\color{blue}{ItemName}@><@\color{red}{')>]}@><@\color{blue}{linkText}@><@\color{red}{[/goto]}@>
+\end{lstlisting}
+
+\noindent In this case \verb|TableTitle| is the title of the table, and \verb|ItemName| is the same as with the regular \verb|app:ItemName| syntax.
+
+%{\color{red}MB: What other things have automatic tags generated for them? GM: the other things are done by report generator and I don't think it's documented so I don't really know, but for example, I just generated a report and checked its bookmarks (from the references tab go to Cross-reference then select bookmark for the reference type, and then I believe it should list the anchors) and had 1 which linked to an RTF DocBlock and the anchor was some long hex string -- basically, while there seem to be other automatic tags, the user would have to investigate report generator and the generated documents if they wanted to use them}
+
+%------------------------
+\subsection{Code}
+%------------------------
+\matlab code may be used in the blue fields of each \emph{tag} presented in this document (i.e. image, url, goto, and anchor tags). 
+If the appropriate code was \verb|my code|, then it cana be run as \matlab code by entering it as follows: 
+
+\begin{lstlisting}
+<@\color{red}{\%<}@><@\color{blue}{my code}@><@\color{red}{>}@>
+\end{lstlisting}
+
+An example of using this  \matlab code is shown in the last code snippet given in Section~\ref{LBL:internalLinks}, where \verb|%<linkMap(`Table_TableTitle_ItemName')>| may be written in place of \verb|app:ItemName|.
+
+\end{document}

@@ -12,3 +12,5 @@ For an in-depth guide, please see the [Full Guide](doc/SimulinkDesignDocumenter_
 
 ## Demo
 A short demo of the tool can be found at https://youtu.be/WBmHbhPmgRs.
+
+[![View Simulink Design Documenter on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/63252-simulink-design-documenter)

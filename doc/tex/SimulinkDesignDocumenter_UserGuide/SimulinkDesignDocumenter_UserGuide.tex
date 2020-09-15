@@ -3,18 +3,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % Packages & Macros
 %%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{colortbl}
-\usepackage{datetime}
-	\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+
+% For including graphics
 \usepackage{graphicx}
+
+% For title page
+\usepackage{datetime}
+\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+
+% For supporting linking
 \usepackage{hyperref}
-\hypersetup{colorlinks,urlcolor=blue}
+\hypersetup{colorlinks,urlcolor=blue,linkcolor=blue}
+
 \usepackage{ifthen}
+
+% For table colouring (in command line tables)
+\usepackage{colortbl}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % Tool-Specific Macros
 %%%%%%%%%%%%%%%%%%%%%%%%%
-\input{../../../common/macros}
+\input{../macros}
 
 \newcommand{\ToolName}{Simulink Design Documenter\@\xspace}
 
@@ -55,10 +64,16 @@
 
 \begin{figure}
 	\centering
-	\includegraphics[]{../../../common/McSCert_Logo.pdf} \\
+	\includegraphics[]{../../figs/McSCert_Logo.pdf} \\
 	McMaster Centre for Software Certification (McSCert)
 \end{figure}
 
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table of Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -69,11 +84,20 @@
 % Briefly, what is the tool?
 
 The purpose of the \ToolName is to facilitate the production of useful \sdd documents for software systems developed with Simulink. While producing documentation is often seen as a tedious task, it is not possible to disregard it since many projects are too large and complex to easily understand without it. The existence of documentation reduces difficulty and time required for software changes and maintenance.
-\\\\
-Further details, as well as additional options and capabilities, can be found in the full guide, located in \href{run:SimulinkDesignDocumenter_FullGuide.pdf}{SimulinkDesignDocumenter\_FullGuide.pdf}.
-%If we add a note that the full guide is out of date, but the new things are mentioned here then I (Gordon) could more easily make some updates to the program to make it easier to use (e.g. context menu option to add required/optional docblocks to a system or to add a config block to a subsystem to use instead of an external file) without having to worry about a bunch of extra documentation in that file.
 
-\subsection*{What the \ToolName Provides}
+
+\subsection{More Information}
+Further details, as well as additional options and capabilities, can be found in the full guide, located in \href{run:SimulinkDesignDocumenter_FullGuide.pdf}{SimulinkDesignDocumenter\_FullGuide.pdf}.
+
+For more information on the tool and how it can be used in model-based development with \Simulink, please refer to the following papers:
+
+\vspace{1em}
+Alexander Schaap, Gordon Marks, Vera Pantelic, Mark Lawford, Gehan Selim, Alan Wassyng, and Lucian Patcas. 2018. \href{https://doi.org/10.1145/3270112.3270115}{``Documenting Simulink Designs of Embedded Systems,"} \textit{Proceedings of the 21st ACM/IEEE International Conference on Model Driven Engineering Languages and Systems (MODELS): Companion Proceedings}, ACM, Copenhagen, Denmark, 47--51.
+
+\vspace{1em}
+Vera Pantelic, Alexander Schaap, Alan Wassyng, Victor Bandur, and Mark Lawford. 2019. \href{https://dl.acm.org/doi/abs/10.5220/0007586005030510}{``Something is Rotten in the State of Documenting Simulink Models,"} \textit{Proceedings of the 7th International Conference on Model-Driven Engineering and Software Development}, SciTePress, 503--510.
+
+\subsection{What the \ToolName Provides}
 
 The \ToolName generates a Word document with a title page, clickable table of contents, Changelog,  Document Purpose section, Scope section, design details, a glossary, appendix, and a summary of warnings (if there were any during generation).
 The table of contents as well as overall formatting of the document are handled completely automatically, while the title page, Document Purpose, and Scope are also included automatically, though they may be configured or edited.
@@ -85,7 +109,7 @@ Beyond this each system will be documented with
 Purpose, Internal Design, Rationale, and Anticipated Changes sections 
 as well as a Requirements Specification section if desired.
 
-\subsection*{A Note on Other Software Documentation}
+\subsection{A Note on Other Software Documentation}
 A \sdd document is not the only document that \emph{should} be produced in a project that uses Simulink. Among other documents, Software Requirements Specification documents are also very important to a successful project and they should not be overlooked. However, the \ToolName{} focuses only on \sdd documents.
 
 \newpage	
@@ -103,7 +127,7 @@ This section describes what must be done to setup the tool, as well as how to us
 
 \begin{enumerate}
 	\item Use \matlab/\Simulink R2016b or newer to generate (the model can be saved in earlier versions).
-	\item Install the \href{https://www.mathworks.com/matlabcentral/fileexchange/49897-signature-tool}{Signature Tool}.
+	\item Install the \href{https://github.com/McSCert/Signature}{Signature Tool}.
 	\item Ensure Simulink Report Generator is installed (check for it with the \cmd{ver} command in \matlab).
 	\item To install the tool,
 	\begin{enumerate}
@@ -115,6 +139,7 @@ This section describes what must be done to setup the tool, as well as how to us
 		\item \textit{Note:} If running the command ``\cmd{which Interface}'' indicates that the script is not found, then the tool needs to be added to the \mpath.
 		For information on adding files to the \mpath, please see the \href{https://www.mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html}{MathWorks documentation}.
 	\end{itemize}
+	\item Ensure the Simulink-Utility folder is on your \mpath. This is a dependency for the tool to work correctly.
 	\item Ensure your model is open (or loaded, for command line use).
 \end{enumerate}
 

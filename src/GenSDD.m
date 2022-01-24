@@ -12,6 +12,8 @@ function GenSDD(topsys)
     
     %
     saved_workspace = SaveAndClearBaseVars('pre-sdd-gen'); % Saves base workspace variables in mat file
+    [modelpath,~,~] = fileparts(which(topsys));
+    cd(modelpath); % Make sure pwd is folder of opened model
     
     %
     assignin('base', 'topsys', topsys);
